@@ -38,9 +38,14 @@ const employeeSchema = new mongoose.Schema({
     enum: ["Administrator", "Supervisor", "Employee"],
     default: "Employee",
   },
-  supervisorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Employee",
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  status: {
+    type: String,
+    enum: ["Active", "Pending"],
+    default: "Pending",
   },
   tokens: [
     {
