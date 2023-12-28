@@ -80,10 +80,10 @@ const delEmployee = async (req, res) => {
 };
 
 router.post("/register", register);
-router.get("/employee", getEmployees);
-router.get("/employee/:id", getEmployee);
+router.get("/employee", auth, getEmployees);
+router.get("/employee/:id", auth, getEmployee);
 router.get("/empdata", auth, getEmp);
-router.patch("/employee/:id", updateEmployee);
-router.delete("/employee/:id", delEmployee);
+router.patch("/employee/:id", auth, updateEmployee);
+router.delete("/employee/:id", auth, delEmployee);
 
 module.exports = router;

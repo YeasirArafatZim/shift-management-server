@@ -41,7 +41,19 @@ const allEmp = async (req, res) => {
   }
 };
 
+// Employee's Supervisor
+const empSup = async (req, res) => {
+  try {
+    const _id = req.employee?.supervisor?.id;
+    const sup = await Employee.findOne({ _id });
+    res.send(sup);
+  } catch (e) {
+    res.status(401).send(err);
+  }
+};
+
 router.get("/getsups", auth, getSupervisors);
 router.patch("/delempsup/:id", auth, delSup);
 router.get("/allemp", auth, allEmp);
+router.get("/empsup", auth, empSup);
 module.exports = router;

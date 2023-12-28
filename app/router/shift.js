@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Shift = require("../model/shift");
+const auth = require("../middleware/auth");
 
 // Create Shift
 const createShift = async (req, res) => {
@@ -59,10 +60,10 @@ const delShift = async (req, res) => {
   }
 };
 
-router.post("/shift", createShift);
-router.get("/shift", getShifts);
-router.get("/shift/:id", getShift);
-router.patch("/shift/:id", updateShift);
-router.delete("/shift/:id", delShift);
+router.post("/shift", auth, createShift);
+router.get("/shift", auth, getShifts);
+router.get("/shift/:id", auth, getShift);
+router.patch("/shift/:id", auth, updateShift);
+router.delete("/shift/:id", auth, delShift);
 
 module.exports = router;

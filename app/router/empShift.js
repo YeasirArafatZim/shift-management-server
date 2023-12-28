@@ -46,8 +46,29 @@ const updateEmpShift = async (req, res) => {
   }
 };
 
+// Employee Schedule
+const getSchedules = async (req, res) => {
+  try {
+    let currentDate = new Date(Date.now());
+    const startOfDay = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
+      6
+    );
+    const id = req.employee._id;
+    const schedules = await EmpShift.find({
+      empId: id,
+      date: { $gte: startOfDay },
+    }).populate("shiftId");
+    res.send(schedules);
+  } catch (e) {
+    res.status(400).send("Not a Valid User");
+  }
+};
+
 router.post("/assignshift", auth, assignShift);
 router.post("/getEmpShift", auth, getEmpShift);
-router.patch("/updateEmpShift", updateEmpShift);
-
+router.patch("/updateEmpShift", auth, updateEmpShift);
+router.get("/getschedule", auth, getSchedules);
 module.exports = router;

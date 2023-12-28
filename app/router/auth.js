@@ -11,7 +11,7 @@ const login = async (req, res) => {
       $or: [{ email: email }, { phone: email }],
     });
     const isMatched = await bcrypt.compare(password, employee.password);
-    if (employee && isMatched) {
+    if (employee && isMatched && employee.status === "Active") {
       const token = await employee.generateTokens();
       res.cookie("jwt", token, {
         maxAge: 259200000,
