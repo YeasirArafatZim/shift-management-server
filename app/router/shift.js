@@ -16,7 +16,7 @@ const createShift = async (req, res) => {
 // Get all Shifts
 const getShifts = async (req, res) => {
   try {
-    const shifts = await Shift.find();
+    const shifts = await Shift.find({});
     res.status(201).send(shifts);
   } catch (err) {
     res.status(401).send(err);

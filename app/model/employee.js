@@ -47,6 +47,12 @@ const employeeSchema = new mongoose.Schema({
     enum: ["Active", "Pending"],
     default: "Pending",
   },
+  supervisor: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    name: String,
+  },
   tokens: [
     {
       token: {

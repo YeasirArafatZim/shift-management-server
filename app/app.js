@@ -6,6 +6,8 @@ const cors = require("cors");
 const employeeRoute = require("./router/employee");
 const authRouter = require("./router/auth");
 const shiftRouter = require("./router/shift");
+const supervisorRoute = require("./router/supervisors");
+const empShiftRouter = require("./router/empShift");
 
 const port = process.env.PORT || 8000;
 const corsOptions = {
@@ -22,5 +24,7 @@ app.use(cors(corsOptions));
 app.use(employeeRoute);
 app.use(authRouter);
 app.use(shiftRouter);
+app.use(supervisorRoute);
+app.use(empShiftRouter);
 
 app.listen(port, () => console.log(`Server is running on port: ${port}...`));
