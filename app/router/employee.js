@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Employee = require("../model/employee");
+const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 
 // Create Employee
@@ -67,6 +68,25 @@ const updateEmployee = async (req, res) => {
     res.status(401).send(e);
   }
 };
+// Update Employee
+const updateEmployeePass = async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const { password } = req.body;
+    const encrypt = await bcrypt.hash(password, 10);
+    const upData = await Employee.findByIdAndUpdate(
+      { _id },
+      { password: encrypt },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.send(upData);
+  } catch (e) {
+    res.status(401).send(e);
+  }
+};
 
 // Delete Employee
 const delEmployee = async (req, res) => {
@@ -84,6 +104,7 @@ router.get("/employee", auth, getEmployees);
 router.get("/employee/:id", auth, getEmployee);
 router.get("/empdata", auth, getEmp);
 router.patch("/employee/:id", auth, updateEmployee);
+router.patch("/passupdate/:id", auth, updateEmployeePass);
 router.delete("/employee/:id", auth, delEmployee);
 
 module.exports = router;

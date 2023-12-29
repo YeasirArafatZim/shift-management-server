@@ -92,7 +92,7 @@ const passCheck = async (req, res) => {
       throw new Error("Password not matched");
     }
   } catch (e) {
-    res.status(400).send("Invalid username or password");
+    res.status(400).send("Invalid password");
   }
 };
 
